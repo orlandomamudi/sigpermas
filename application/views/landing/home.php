@@ -59,7 +59,6 @@
     <div class="hero-container">
       <h1>SISTEM INFORMASI GEOGRAFIS PERSEBARAN MASJID </br> SULAWESI UTARA</h1>
       <h2>Sistem informasi ini merupakan aplikasi persebaran geografis Masjid di wilayah Sulawesi Utara. Aplikasi ini memuat informasi dan lokasi dari masjid yang berada di Sulawesi Utara.</h2>
-      <a href="#about" class="btn-get-started scrollto">Get Started</a>
     </div>
   </section><!-- #hero -->
 
@@ -70,7 +69,7 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>About Us</h2>
+          <h2>Persebaran Masjid di Gorontalo</h2>
         </div>
 
         <div class="row">
@@ -84,65 +83,13 @@
       </div>
     </section><!-- End About Us Section -->
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Services</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="bi bi-cpu"></i></div>
-            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="bi bi-clipboard-data"></i></div>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="bi bi-globe"></i></div>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="bi bi-images"></i></div>
-            <h4 class="title"><a href="">Magni Dolores</a></h4>
-            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="bi bi-sliders"></i></div>
-            <h4 class="title"><a href="">Nemo Enim</a></h4>
-            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box">
-            <div class="icon"><i class="bi bi-building"></i></div>
-            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Services Section -->
-
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Amoeba</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-one-page-bootstrap-template-amoeba/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; Copyright <strong><span>2024</span></strong>.
       </div>
     </div>
   </footer><!-- End #footer -->
@@ -161,8 +108,14 @@
 
   <!-- LeafletJs Maps -->
 <script>         
-        var lat = <?php echo JSON_encode($lat); ?>;
-         var mapOptions = {
+        var latObject = <?php echo JSON_encode($lat); ?>;
+        var lat = [];
+          for (var i = 0; i < latObject.length; i++) {
+              lat.push(latObject[i].latitude);
+              lat.push(latObject[i].longitude);
+          }
+          console.log(lat);
+        var mapOptions = {
             center: [-6.2293796, 106.6647002],
             zoom: 10
          }
@@ -171,8 +124,8 @@
          var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
                   
          map.addLayer(layer);
-         for (var i = 0; i < lat.length; i++) {
-		      var marker = L.marker([lat[i][0], lat[i][1]]).bindPopup(lat[i][0]).addTo(map);
+         for (var i = 0; i < latObject.length; i++) {
+		      var marker = L.marker('0.600655, 122.867311').addTo(map);
           }
           console.log(lat);
           
