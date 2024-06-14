@@ -44,5 +44,14 @@ class Home extends CI_Controller {
 		$this->load->view('landing/data_masjid', $data);
 	}
 
+	public function detail_masjid($id)
+    {
+		$where = array(
+			'id_masjid' => $id
+		);
+		$data['detail'] = $this->data_model->edit_data($where, 'data_masjid')->result();
+        $this->load->view('landing/detail', $data);
+    }
+
 
 }

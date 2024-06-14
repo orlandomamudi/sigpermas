@@ -94,7 +94,7 @@
                 <tr>
                     <td><?= $l->nama_masjid ?></td>
                     <td><?= $l->alamat ?></td>
-                    <td><a class="btn btn-success" href="#" role="button">Detail</a></td>
+                    <td><a href="<?php echo base_url().'home/detail_masjid/'.$l->id_masjid; ?>" class="btn btn-success btn-sm">Detail</a></td>
                 </tr>
             <?php } ?>
         </tbody>
