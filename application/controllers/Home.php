@@ -33,6 +33,7 @@ class Home extends CI_Controller {
 		$data = array(
 			'lat' => $this->data_model->getLat(),
 			'long' => $this->data_model->getLong(),
+			'all_data' => $this->data_model->get_all_data(),
 		);
 		$this->load->view('landing/home', $data);
 	}

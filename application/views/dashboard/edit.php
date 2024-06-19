@@ -117,12 +117,20 @@
                               <?php $path = FCPATH .'assets'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$d->id_masjid.DIRECTORY_SEPARATOR; ?>
                                 <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
                                   <div class="carousel-inner">
+                                  <?php if (empty(glob($path."*.*")) === true): ?>
+
+                                  <img src="<?php echo base_url('assets/img/example-image.jpg'); ?>" style="height: min-content; filter: grayscale(100%);" alt="">
+
+                                  <?php else: ?>
+
                                     <?php $i=0; foreach (glob($path."*.*") as $file): ?>
                                     <?php if ($i==0) {$set_ = 'active'; } else {$set_ = ''; } ?> 
                                     <div class="carousel-item <?php echo $set_; ?>">
                                       <img class="d-block w-100" src="<?= str_replace(FCPATH, base_url(), $file); ?>">
                                     </div>
                                     <?php $i++; endforeach ?>
+                                    
+                                  <?php endif; ?>
                                   </div>
                                   <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

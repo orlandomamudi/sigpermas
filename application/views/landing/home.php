@@ -10,8 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="<?php echo base_url('assets/img/favicon/favicon.ico'); ?>" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Lato:400,300,700,900" rel="stylesheet">
@@ -26,8 +25,12 @@
   <link href="<?php echo base_url('assets/landing/css/style.css'); ?>" rel="stylesheet">
 
   <!-- LeafletJs Maps -->
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 </head>
 
 <body>
@@ -39,7 +42,7 @@
       <div class="logo me-auto">
         <!-- <h1><a href="index.html">SIG PERSEBARAN MASJID</a></h1> -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="<?php echo base_url('assets/landing/img/logo.png'); ?>" alt="" class="img-fluid"></a>
+        <a href="<?= base_url() ?>"><img src="<?php echo base_url('assets/img/logo.png'); ?>" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -57,8 +60,8 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div class="hero-container">
-      <h1>SISTEM INFORMASI GEOGRAFIS PERSEBARAN MASJID </br> SULAWESI UTARA</h1>
-      <h2>Sistem informasi ini merupakan aplikasi persebaran geografis Masjid di wilayah Sulawesi Utara. Aplikasi ini memuat informasi dan lokasi dari masjid yang berada di Sulawesi Utara.</h2>
+      <h1>SISTEM INFORMASI GEOGRAFIS PERSEBARAN MASJID </br> GORONTALO</h1>
+      <h2>Sistem informasi ini merupakan aplikasi persebaran geografis Masjid di wilayah Sulawesi Utara. Aplikasi ini memuat informasi dan lokasi dari masjid yang berada di Gorontalo.</h2>
     </div>
   </section><!-- #hero -->
 
@@ -73,11 +76,11 @@
         </div>
 
         <div class="row">
-			<div class="col-lg-12">
-				<div class="d-flex align-items-center justify-content-center">
-					<div id="map" style="width: 950px; height: 450px"></div>
-				</div>
-			</div>
+          <div class="col-lg-12">
+            <div class="d-flex align-items-center justify-content-center">
+              <div id="map" style="width: 950px; height: 450px"></div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -107,8 +110,8 @@
   <script src="assets/js/main.js"></script>
 
   <!-- LeafletJs Maps -->
-<script>         
-        var latObject = <?php echo JSON_encode($lat); ?>;
+<!-- <script>         
+        var latObject =;
         var lat = [];
           for (var i = 0; i < latObject.length; i++) {
               lat.push(latObject[i].latitude);
@@ -125,10 +128,28 @@
                   
          map.addLayer(layer);
          for (var i = 0; i < latObject.length; i++) {
-		      var marker = L.marker('0.600655, 122.867311').addTo(map);
+		      var marker = L.marker('1.457358378998722, 124.81276759246336').addTo(map);
           }
           console.log(lat);
           
+</script> -->
+<script>
+  var mapOptions = {
+    center: [0.588800, 122.803741],
+    zoom: 12
+  }
+          
+  var map = new L.map('map', mapOptions);            
+  var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+          
+  map.addLayer(layer);
+
+  <?php foreach ($all_data as $key => $value) { ?>
+    var marker = L.marker([<?= $value->latitude ?>, <?= $value->longitude ?>])
+    .bindPopup("<p>Nama Masjid : <?= $value->nama_masjid; ?></p><p>Alamat : <?= $value->alamat; ?></p>")
+    .addTo(map);
+  <?php } ?>
+
 </script>
 
 </body>

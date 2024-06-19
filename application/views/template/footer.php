@@ -1,6 +1,6 @@
         <footer class="main-footer">
             <div class="footer-left">
-            Copyright &copy; 2019
+            Copyright &copy; 2024.
             </div>
             <div class="footer-right">
             

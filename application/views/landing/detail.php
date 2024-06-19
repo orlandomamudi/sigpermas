@@ -11,8 +11,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="<?php echo base_url('assets/landing/img/favicon.png'); ?>" rel="icon">
-  <link href="<?php echo base_url('assets/landing/img/apple-touch-icon.png'); ?>" rel="apple-touch-icon">
+  <link href="<?php echo base_url('assets/img/favicon/favicon.ico'); ?>" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Lato:400,300,700,900" rel="stylesheet">
@@ -38,9 +37,8 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo me-auto">
-        <h1><a href="index.html">Amoeba</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="<?php echo base_url('assets/landing/img/logo.png'); ?>" alt="" class="img-fluid"></a>-->
+        <a href="<?= base_url() ?>"><img src="<?php echo base_url('assets/img/logo.png'); ?>" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -82,19 +80,20 @@
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
+              <?php $path = FCPATH .'assets'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$detail[0]->id_masjid.DIRECTORY_SEPARATOR; ?>
+              <?php if (empty(glob($path."*.*")) === true): ?>
 
-                <div class="swiper-slide">
-                  <img src="<?php echo base_url('assets/landing/img/portfolio/portfolio-1.jpg'); ?>" alt="">
-                </div>
+                  <img src="<?php echo base_url('assets/img/example-image.jpg'); ?>" style="height: min-content; filter: grayscale(100%);" alt="">
 
-                <div class="swiper-slide">
-                  <img src="<?php echo base_url('assets/landing/img/portfolio/portfolio-2.jpg'); ?>" alt="">
-                </div>
+              <?php else: ?>
 
-                <div class="swiper-slide">
-                  <img src="<?php echo base_url('assets/landing/img/portfolio/portfolio-3.jpg'); ?>" alt="">
-                </div>
+                <?php $i=0; foreach (glob($path."*.*") as $file): ?>
+                    <div class="swiper-slide">
+                    <img src="<?= str_replace(FCPATH, base_url(), $file); ?>" alt="" />
+                    </div>
+                <?php $i++; endforeach ?>
 
+              <?php endif; ?>
               </div>
               <div class="swiper-pagination"></div>
             </div>
@@ -102,22 +101,28 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>Project information</h3>
+              <h3>Masjid <?= $detail[0]->nama_masjid; ?></h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Alamat</strong>: <?= $detail[0]->alamat; ?></li>
+                <li><strong>Luas Tanah</strong>: <?= $detail[0]->luas_tanah; ?></li>
+                <li><strong>Status Tanah</strong>: <?= $detail[0]->status_tanah; ?></li>
+                <li><strong>Luas Bangunan</strong>: <?= $detail[0]->luas_bangunan; ?></li>
+                <li><strong>Daya Tampung</strong>: <?= $detail[0]->daya_tampung; ?> orang</li>
+                <li><strong>Jumlah Pengurus</strong>: <?= $detail[0]->jumlah_pengurus; ?> orang</li>
+                <li><strong>Jumlah Imam</strong>: <?= $detail[0]->jumlah_imam; ?> orang</li>
+                <li><strong>Fasilitas</strong>: <?= $detail[0]->fasilitas; ?></li>
+                <li><strong>Kegiatan</strong>: <?= $detail[0]->kegiatan; ?></li>
               </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
             </div>
           </div>
 
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg-12">
+            <div class="d-flex align-items-center justify-content-center">
+              <div id="map" style="width: 2040px; height: 450px"></div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -147,28 +152,21 @@
   <script src="<?php echo base_url('assets/landing/js/main.js'); ?>"></script>
 
   <!-- LeafletJs Maps -->
-<script>         
-        var latObject = <?php echo JSON_encode($lat); ?>;
-        var lat = [];
-          for (var i = 0; i < latObject.length; i++) {
-              lat.push(latObject[i].latitude);
-              lat.push(latObject[i].longitude);
-          }
-          console.log(lat);
-        var mapOptions = {
-            center: [-6.2293796, 106.6647002],
-            zoom: 10
-         }
-                  
-         var map = new L.map('map', mapOptions);            
-         var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-                  
-         map.addLayer(layer);
-         for (var i = 0; i < latObject.length; i++) {
-		      var marker = L.marker('0.600655, 122.867311').addTo(map);
-          }
-          console.log(lat);
+  <script>
+  var mapOptions = {
+    center: [<?= $detail[0]->latitude ?>, <?= $detail[0]->longitude ?>],
+    zoom: 14
+  }
           
+  var map = new L.map('map', mapOptions);            
+  var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+          
+  map.addLayer(layer);
+
+    var marker = L.marker([<?= $detail[0]->latitude ?>, <?= $detail[0]->longitude ?>])
+    .bindPopup("<p>Nama Masjid : <?= $detail[0]->nama_masjid; ?></p><p>Alamat : <?= $detail[0]->alamat; ?></p>")
+    .addTo(map);
+
 </script>
 </body>
 

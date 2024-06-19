@@ -46,6 +46,13 @@ class Data_model extends CI_Model{
         return $query->result_array();
     }
 
+	public function get_all_data()
+	{
+		$this->db->select('*');
+		$this->db->from('data_masjid');
+		return $this->db->get()->result();
+	}
+
 }
 
 ?>

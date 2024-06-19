@@ -7,8 +7,8 @@
                 </div>
                 <ul class="sidebar-menu">                    
                     <li class="menu-header">Starter</li>                    
-                    <li class=active><a class="nav-link" href="<?php echo base_url('admin'); ?>"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
-                    <li><a class="nav-link" href="<?php echo base_url('admin/datamasjid'); ?>"><i class="fas fa-pencil-ruler"></i> <span>Daftar Masjid</span></a></li>
+                    <li <?php if($this->uri->uri_string() == 'admin'){echo 'class="active"';}?> ><a class="nav-link" href="<?php echo base_url('admin'); ?>"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+                    <li <?php if($this->uri->uri_string() == 'admin/datamasjid'){echo 'class="active"';}?> ><a class="nav-link" href="<?php echo base_url('admin/datamasjid'); ?>"><i class="fas fa-list"></i> <span>Daftar Masjid</span></a></li>
                 </ul>
 <!-- 
                 <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

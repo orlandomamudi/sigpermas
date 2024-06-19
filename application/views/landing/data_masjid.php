@@ -11,8 +11,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="<?php echo base_url('assets/img/favicon/favicon.ico'); ?>" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Lato:400,300,700,900" rel="stylesheet">
@@ -40,11 +39,9 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo me-auto">
-        <h1><a href="index.html">
-            
-        </a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <a href="<?= base_url() ?>"><img src="<?php echo base_url('assets/img/logo.png'); ?>" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -81,7 +78,7 @@
       <table id="example" class="table table-striped" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Nama Masjid</th>
                 <th>Alamat</th>
                 <th></th>
             </tr>
@@ -92,7 +89,7 @@
             foreach($list as $l){ 
                 ?>
                 <tr>
-                    <td><?= $l->nama_masjid ?></td>
+                    <td>Masjid <?= $l->nama_masjid ?></td>
                     <td><?= $l->alamat ?></td>
                     <td><a href="<?php echo base_url().'home/detail_masjid/'.$l->id_masjid; ?>" class="btn btn-success btn-sm">Detail</a></td>
                 </tr>
